@@ -1,0 +1,62 @@
+<html>
+ <head>
+      <title>Changelog</title>
+        
+        <link rel="shortcut icon" href="Favicons/favicon.ico" type="image/x-icon">
+       
+       <link rel="icon" href="Favicons/favicon.ico" type="image/x-icon">
+       
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+       <meta name="robots" content="noindex">
+
+ </head>
+ <body>
+  <h1>Changelog</h1>
+                      01. DONE -2hr- add electric fees standalone output<br/>
+                      02. DONE -2hr- add mining payment standalone output<br/>
+                      03. -Unnecesary- scalable responsive wireframe<br/>
+                      04. DONE -4hr-add miner presets<br/>
+                      05. PAUSED add exponential difficulty growth rate<br/>
+                      06. DONE -15min-  implement advanced output number rounding system<br/>
+                      07. DONE -5min- implement memorable color scheme<br/>
+                      08. DONE -1min- put in placeholders for inputs<br/>
+                      09. DONE -3hr- add live difficulty and block rate<br/> 
+                      10. DONE -35min- implement NaN and Infinity checker for outputs<br/>
+                      11. DONE -4hr- merge and anchor the hashing power input to its dropdown menu and make it responsive...somehow?<br/>
+                      12. DONE -15min- add a page for this list and a button to go to it from the main page<br/>
+                      14. DONE -8hr- move api caller to server-side and store dynamic info server side so api call wont be sent for every user.<br/>
+                      15. DONE -15min- make white space outside of favicon transparent<br/>
+                      16. DONE -30min-add advanced and simple mode toggle.<br/>
+                      17 DONE -30min- impliment Adsense<br/>
+                      18. develop logo and name image for header<br/>
+                      19. add % rockers on mining difficulty<br/>
+                      20. DONE -4hr- Fix the god awful CSS written before I knew the difference between margin and padding.<br/>
+                      21. Toggle between advanced and simple text on the mode switch button<br/>
+                      22. DONE -15min- switch from separate main/mobile css files to solely media queries<br/>
+                      23. Disable .html extensions for linked pages.<br/>
+                     
+                      <br/>
+                      <p>Changelog 1.1.0:<br/>
+                        A new system for calling and caching API info has been implemented, the previous system had 3 separate APIs to call that would be called from the clients device and have a latency of about a couple milliseconds, and would cause the site to 'flash', before the variables were called from the APIs, since the rest of the DOM has loaded before the calls are received, the site appears to flash when the variables are put into their respective inputs. Simply waiting for the API calls to finish and then loadig the DOM may have fixed the flashing, but still would have delayed the DOM loading which would be totally unnecessary. What I've done is installed a Node.js server that will query the APIs every given interval(5 minutes currently) and will compile these into an array which is written to a server side JS file that is then used as a library by my main JS file, this array is sent pre-manipulated from the Node server, so they are simply taken from the array and put into their respective input boxes. 
+                      <p>Changelog 1.2.0:<br/>
+                      Rolled back last update, as most shared hosting services will not allow the use of Node.JS on their servers, and as I'm not running ads, paying $50+/Month for a dedicated server would be unjustifiable. The API calls are sent from the client to an external API as it was previous to 1.1.0. Added Miner Presets, on the left hand side of the page the user will be able to select from a list of popular bitcoin miners, when done their specifications will be prefilled into the input.
+                      <br/><br/>
+                      Advantages:
+                      <br/><br/>
+                      1. The API servers are not required to be online to provide a value to the client, since the values are written to a server file, they are available permanently, and the API calls are only used to update them.
+                      <br/><br/>
+                      2. The API servers will not be spammed as they possibly could have been given a large enough user population, And since the choice to call the API is not based on page initialization, I can set variable call rates depending on if they changed from the previous call and how long ago the previous call was, thereby further decreasing strain on the server and API(regardless of how small).
+                      <br/><br/>
+                      3. As mentioned previously, the performance of the site itself increasing because the clients won't have to call the API, along with the elimination of the 'flash' upon loading, go together to make the site look much more professional.
+                      <br/><br/>
+                      4. With me being able to offload the string manipulation(12500000000 => 12.5) to my Node server I slightly reduce the amount of Javascript that is required to be sent to client, yet another small performance boost to the client, and a large potential load taken off of the API server.
+                      <br/>
+                      <br/>
+
+                      </p>
+                      <label>KNOWN BUGS:</label>
+                      <p>1. After a miner preset has been clicked, hovering over the other miner presets will not turn their borders orange.</p>
+
+
+</html>

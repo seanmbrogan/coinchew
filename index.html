@@ -1,0 +1,408 @@
+<html>
+
+<head>
+    <title>Bitcoin Mining Calculator - Coinchew</title>
+    <script src="Libraries/jqueryajax.js"></script>
+    <link rel="shortcut icon" href="Pages/Favicons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="Pages/Favicons/favicon.ico" type="image/x-icon">
+
+<meta name="google-site-verification" content="6fcdyj3YfGWsmldBiBZBrDwU-6cJhkOKgPrvOZxuKJw" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="CSS/main.css" />
+    <meta name="author" content="Sean Brogan">
+    <meta name="description" content="How much money could you be making mining bitcoin?">
+
+
+</head>         <!-- other choice is  The very best Bitcoin mining calculator currently out on the web!--> 
+
+<body>
+
+    
+        
+        <header class="header">
+        Coinchew
+        </header>
+        <div id = bodydiv>
+        <div id='minermenu' class='minermenu'>
+
+            <button class='presetbut' id='S3' onclick="minerClick(S3.name, S3.formalname, S3.hashpwr,S3.hashmetric,S3.poweruse,S3.price)">
+            <lbl class = prelbl id = S3lbl></lbl>
+            <img unselectable ='on' class = 'preIMG' src="Pictures/Miners/S3.jpg">
+            <p id = S3desc></p>
+        </button>
+            <button class='presetbut' id='S5' onclick="minerClick(S5.name, S5.formalname, S5.hashpwr,S5.hashmetric,S5.poweruse,S5.price)">
+            <lbl class = prelbl id = S5lbl></lbl>
+            <img unselectable ='on' class = 'preIMG' src="Pictures/Miners/S5.jpg">
+            <p id = S5desc></p>
+        </button>
+            <button class='presetbut' id='S7' onclick="minerClick(S7.name, S7.formalname, S7.hashpwr,S7.hashmetric,S7.poweruse,S7.price)">
+            <lbl class = prelbl id = S7lbl></lbl>
+            <img unselectable ='on' class = 'preIMG' src="Pictures/Miners/S7.jpg">
+            <p id = S7desc></p>
+        </button>
+            <button class='presetbut' id='S9' onclick="minerClick(S9.name, S9.formalname, S9.hashpwr,S9.hashmetric,S9.poweruse,S9.price)">
+            <lbl class = prelbl id = S9lbl></lbl>
+            <img unselectable ='on' class = 'preIMG' src="Pictures/Miners/S9.jpg">
+            <p id = S9desc></p>
+        </button>
+            <button class='presetbut' id='Avalon6' onclick="minerClick(Avalon6.name, Avalon6.formalname, Avalon6.hashpwr,Avalon6.hashmetric,Avalon6.poweruse,Avalon6.price)">
+            <lbl class = prelbl id = Avalon6lbl></lbl>
+            <img unselectable ='on' class = 'preIMG' src="Pictures/Miners/Avalon6.jpg">
+            <p id = Avalon6desc></p>
+        </button>
+        </div>
+
+
+
+
+
+        <div class = input>
+            <div id = togglemode class=togglemode>
+            <button id='simplemode' class='underlinebutton' onClick=toggleMode()>Simple Mode</button>
+            <button id='advancedmode' class='underlinebutton' onClick=toggleMode()>Advanced Mode</button>
+        </div>
+        <br/>
+        <label class='easylbl'>Hashing Power</label>
+        <br/>
+        <input type="Number" id="hp" onKeyDown="getVal()" onKeyUp="getVal()"  form='forms' placeholder='Hashing Power'>
+        <select id="hcemenu" class='hashmenu' onChange="getVal()">
+            <option type="text" value="1">H/s</option>
+            <option type="text" value="1000">kH/s</option>
+            <option type="text" value="1000000">MH/s</option>
+            <option type="text" value="1000000000" selected="selected">GH/s</option>
+            <option type="text" value="1000000000000">TH/s</option>
+            <option type="text" value="1000000000000000">PH/s</option>
+        </select>
+        <br/> <label class='hardlbl' style='opacity:0'>Value of Bitcoin ($)</label>
+        <br/>
+        <input type="Number" class='hardinput' id="bp" style='opacity:0' onKeyDown="getVal()" onKeyUp="getVal()" placeholder='Value of Bitcoin' disabled='disabled' />
+        <br/> <label class='easylbl'>Power Consumption (W)</label>
+        <br/>
+        <input type="Number" id="pc" onKeyDown="getVal()" onKeyUp="getVal()"  placeholder='Power Consumption' />
+        <br/> <label class='hardlbl' style='opacity:0'>Block Reward (BTC)</label>
+        <br/>
+        <input type="Number" class='hardinput' id="br" style='opacity:0' onKeyDown="getVal()" onKeyUp="getVal()"  placeholder='Block Reward' disabled='disabled' />       
+        <br/> <label class='easylbl'>Cost Per kW/h ($)</label>
+        <br/>
+        <input type="Number" id="cp" onKeyDown="getVal()" onKeyUp="getVal()" value ='.15' placeholder='Cost Per kW/h' />
+        <br/> <label class='hardlbl' style='opacity:0'>Mining Difficulty</label>
+        <br/>
+        <input type="Number" class='hardinput' id="md" style='opacity:0'  onKeyDown="getVal()" onKeyUp="getVal()"  placeholder='Mining Difficulty' disabled='disabled' />
+        <br/> <label class='easylbl'>Pool Fees (%)</label>
+        <br/>
+        <input type="Number" class='easyinput' id="pf" onKeyDown="getVal()" onKeyUp="getVal()"  placeholder='Pool Fees' />
+        <br/>
+
+        <!--<br/> Difficulty Growth Rate
+            <br/>
+            <input type="Text" id="dg" onKeyDown="getVal()" onKeyUp="getVal()" value="61%" placeholder='Difficulty Growth Rate (%)'/>
+            -->
+        <br/>
+   </div>
+
+    <div id="output">
+
+        <table class="outtab">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th id='tabh1' class='tabh'>Profit</th>
+                    <th id='tabh2' class='tabh'>Gross</th>
+                    <th id='tabh3' class='tabh'>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class='outlab'>Hour</td>
+                    <td id='fhour'></td>
+                    <td id='rhour'></td>
+                    <td id='phour'></td>
+                </tr>
+                <tr>
+                    <td class='outlab'>Day</td>
+                    <td id='fday'></td>
+                    <td id='rday'></td>
+                    <td id='pday'></td>
+                </tr>
+                <tr>
+                    <td class='outlab'>Week</td>
+                    <td id='fweek'></td>
+                    <td id='rweek'></td>
+                    <td id='pweek'></td>
+                </tr>
+                <tr>
+                    <td class='outlab'>Month</td>
+                    <td id='fmonth'></td>
+                    <td id='rmonth'></td>
+                    <td id='pmonth'></td>
+                </tr>
+                <tr>
+                    <td class='outlab'>Year</td>
+                    <td id='fyear'></td>
+                    <td id='ryear'></td>
+                    <td id='pyear'></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+    <footer class=about>
+        <a href='Pages/todo.html' id='todo'>Changelog</a>
+        <a href='Pages/faq.html' id='faq'>FAQ</a>
+        <a href='Pages/contactme.html' id ='contactme'>Contact Me</a>
+        
+    </footer>
+
+    <script>
+        var S3 = {
+            name: 'S3',
+            formalname: 'S3',
+            hashpwr: 450,
+            hashmetric: 1000000000,
+            hashstring: 'GH/s',
+            poweruse: 366,
+            price: 250
+
+        };
+        document.getElementById("S3lbl").innerHTML = S3.name;
+        document.getElementById("S3desc").innerHTML = '<br/>$' + S3.price + '<br/>' + S3.hashpwr + ' ' + S3.hashstring + '<br/>' + S3.poweruse + ' W';
+        var S5 = {
+            name: 'S5',
+            formalname: 'S5',
+            hashpwr: 1155,
+            hashmetric: 1000000000,
+            hashstring: 'GH/s',
+            poweruse: 560,
+            price: 760
+        };
+        document.getElementById("S5lbl").innerHTML = S5.name;
+        document.getElementById("S5desc").innerHTML = '<br/>$' + S5.price + '<br/>' + S5.hashpwr + ' ' + S5.hashstring + '<br/>' + S5.poweruse + ' W';
+        var S7 = {
+            name: 'S7',
+            formalname: 'S7',
+            hashpwr: 4.87,
+            hashmetric: 1000000000000,
+            hashstring: 'TH/s',
+            poweruse: 1293,
+            price: 1400
+        };
+        document.getElementById("S7lbl").innerHTML = S7.name;
+        document.getElementById("S7desc").innerHTML = '<br/>$' + S7.price + '<br/>' + S7.hashpwr + ' ' + S7.hashstring + '<br/>' + S7.poweruse + ' W';
+        var S9 = {
+            name: 'S9',
+            formalname: 'S9',
+            hashpwr: 14,
+            hashmetric: 1000000000000,
+            hashstring: 'TH/s',
+            poweruse: 1372,
+            price: 3595
+        };
+        document.getElementById("S9lbl").innerHTML = S9.name;
+        document.getElementById("S9desc").innerHTML = '<br/>$' + S9.price + '<br/>' + S9.hashpwr + ' ' + S9.hashstring + '<br/>' + S9.poweruse + ' W';
+        var Avalon6 = {
+            name: 'Avalon 6',
+            formalname: 'Avalon6',
+            hashpwr: 3.5,
+            hashmetric: 1000000000000,
+            hashstring: 'TH/s',
+            poweruse: 1080,
+            price: 1089
+        };
+
+        document.getElementById("Avalon6lbl").innerHTML = Avalon6.name;
+        document.getElementById("Avalon6desc").innerHTML = '<br/>$' + Avalon6.price + '<br/>' + Avalon6.hashpwr + ' ' + Avalon6.hashstring + '<br/>' + Avalon6.poweruse + ' W';
+
+        document.addEventListener("DOMContentLoaded", function() {
+            ajax();
+        })
+
+        function ajax() {
+
+            $.ajax({
+                url: "https://blockchain.info/ticker",
+                type: 'GET',
+
+                success: function(data) {
+                    var datap = JSON.parse(data.USD.last);
+                    var doc = document.getElementById('bp');
+                    doc.value = datap;
+                    doc.disabled = false;
+                    getVal(); //JUST RUN THIS ONCE IN THE FUTURE FOR BETTER PERFORMANCE!!
+                }
+            });
+
+
+            $.ajax({
+                url: "https://blockchain.info/q/bcperblock",
+                type: 'GET',
+                data: {
+                    cors: true
+                },
+                success: function(data) {
+                    var datap = data.substr(0, 2) + '.' + data.substr(2).slice(0, 1);
+                    var doc = document.getElementById('br');
+                    doc.value = datap;
+                    doc.disabled = false;
+                    getVal();
+                }
+            });
+        }
+
+        $.ajax({
+            url: "https://blockchain.info/q/getdifficulty",
+            type: 'GET',
+
+            data: {
+                cors: true
+            },
+
+            success: function(data) {
+
+                var datap = data.replace(/\D/gi, '');
+                var doc = document.getElementById('md');
+                doc.value = datap;
+                doc.disabled = false;
+                getVal();
+            }
+        });
+        var tabv1 = document.getElementById("tabh1");
+        var tabv2 = document.getElementById("tabh2");
+        var tabv3 = document.getElementById("tabh3");
+
+        function minerClick(name, formalname, hashpwr, hashmetric, poweruse, price) {
+            //WONT REANIMATE TO ORANGE AFTER IT HAS ALREADY BEEN CLICKED - NO FIX IN SIGHT 
+            document.getElementsByClassName('presetbut')[4].style.borderColor = 'black';
+            document.getElementsByClassName('presetbut')[3].style.borderColor = 'black';
+            document.getElementsByClassName('presetbut')[2].style.borderColor = 'black';
+            document.getElementsByClassName('presetbut')[1].style.borderColor = 'black';
+            document.getElementsByClassName('presetbut')[0].style.borderColor = 'black';
+            document.getElementById(formalname).style.borderColor = 'rgb(247, 147, 26)';
+
+            document.getElementById("hp").value = hashpwr;
+
+            document.getElementById("hcemenu").value = hashmetric;
+
+            document.getElementById("pc").value = poweruse;
+            getVal();
+        }
+
+        function getVal() {
+
+
+            //Hashrate Coefficient 
+            var hce = document.getElementById("hcemenu").value;
+            //Current Value of Bitcoin
+            var bpv = document.getElementById("bp").value;
+            //Hashing Power
+            var hpv = document.getElementById("hp").value;
+            //Power Consumption
+            var pcv = document.getElementById("pc").value / 1000;
+            //Cost Per kW/h
+            var cpv = document.getElementById("cp").value;
+            //Current Mining Difficulty
+            var cmv = document.getElementById("md").value * 4294967296;
+            //Current Block Rewards
+            var cbr = document.getElementById("br").value;
+            //Mining Difficulty Growth Rate 
+            //var dgr = document.getElementById("dg").value;
+            //Pool Fees
+            var pfv = document.getElementById("pf").value * .01;
+
+            var raw = ((+bpv) * (+cbr) * (+hpv) * (+hce));
+
+            var price = (-(+pcv) * (+cpv));
+
+            var Rhour = (((+raw) * 3600) / ((+cmv)));
+            var Rday = (((+raw) * 86400) / ((+cmv)));
+            var Rweek = (((+raw) * 604800) / ((+cmv)));
+            var Rmonth = (((+raw) * 2629746) / ((+cmv)));
+            var Ryear = (((+raw) * 31557600) / ((+cmv)));
+
+            var Phour = (((+price) * 1) + ((+Rhour) * pfv));
+            var Pday = (((+price) * 24) + ((+Rday) * pfv));
+            var Pweek = (((+price) * 168) + ((+Rweek) * pfv));
+            var Pmonth = (((+price) * 720) + ((+Rmonth) * pfv));
+            var Pyear = (((+price) * 8760) + ((+Ryear) * pfv));
+
+            var Fhour = ((+Rhour) + (+Phour));
+            var Fday = ((+Rhour) + (+Phour));
+            var Fweek = ((+Rhour) + (+Phour));
+            var Fmonth = ((+Rhour) + (+Phour));
+            var Fyear = ((+Rhour) + (+Phour));
+
+            var outNaN = 'Slow Down There';
+            if (isFinite(Fhour) == false || isFinite(Fyear) == false || isNaN(Fhour) == true) {
+
+            } else {
+                document.getElementById("fhour").innerHTML = '$' + Fhour.toFixed(2);
+                document.getElementById("fday").innerHTML = '$' + Fday.toFixed(2);
+                document.getElementById("fweek").innerHTML = '$' + Fweek.toFixed(2);
+                document.getElementById("fmonth").innerHTML = '$' + Fmonth.toFixed(2);
+                document.getElementById("fyear").innerHTML = '$' + Fyear.toFixed(2);
+
+                document.getElementById("rhour").innerHTML = '$' + Rhour.toFixed(2);
+                document.getElementById("rday").innerHTML = '$' + Rday.toFixed(2);
+                document.getElementById("rweek").innerHTML = '$' + Rweek.toFixed(2);
+                document.getElementById("rmonth").innerHTML = '$' + Rmonth.toFixed(2);
+                document.getElementById("ryear").innerHTML = '$' + Ryear.toFixed(2);
+
+                document.getElementById("phour").innerHTML = '$' + Phour.toFixed(2);
+                document.getElementById("pday").innerHTML = '$' + Pday.toFixed(2);
+                document.getElementById("pweek").innerHTML = '$' + Pweek.toFixed(2);
+                document.getElementById("pmonth").innerHTML = '$' + Pmonth.toFixed(2);
+                document.getElementById("pyear").innerHTML = '$' + Pyear.toFixed(2);
+            }
+            if (Fyear < 0) {
+                tabv1.style.borderColor = "red";
+                tabv2.style.borderColor = "red";
+                tabv3.style.borderColor = "red";
+            } else {
+                tabv1.style.borderColor = "green";
+                tabv2.style.borderColor = "green";
+                tabv3.style.borderColor = "green";
+
+            }
+
+        }
+
+        function toggleMode() {
+            var hardlbls = document.getElementsByClassName('hardlbl');
+            var hardinputs = document.getElementsByClassName('hardinput');
+
+            if (hardlbls[1].style.opacity == '0') {
+                document.getElementById('simplemode').style.opacity = 1;
+                document.getElementById('advancedmode').style.opacity = 0;
+
+                document.getElementById('simplemode').style.zIndex = 1;
+                document.getElementById('advancedmode').style.zIndex = 0;
+
+                hardinputs[0].style.opacity = '1';
+                hardinputs[1].style.opacity = '1';
+                hardinputs[2].style.opacity = '1';
+
+                hardlbls[0].style.opacity = '1';
+                hardlbls[1].style.opacity = '1';
+                hardlbls[2].style.opacity = '1';
+            } else {
+                document.getElementById('simplemode').style.opacity = 0;
+                document.getElementById('advancedmode').style.opacity = 1;
+
+                document.getElementById('simplemode').style.zIndex = 0;
+                document.getElementById('advancedmode').style.zIndex = 1;
+
+                hardinputs[0].style.opacity = '0';
+                hardinputs[1].style.opacity = '0';
+                hardinputs[2].style.opacity = '0';
+
+                hardlbls[0].style.opacity = '0';
+                hardlbls[1].style.opacity = '0';
+                hardlbls[2].style.opacity = '0';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
