@@ -149,9 +149,9 @@
     </div>
 </div>
     <footer class=about>
-        <a href='Pages/todo.html' id='todo'>Changelog</a>
-        <a href='Pages/faq.html' id='faq'>FAQ</a>
-        <a href='Pages/contactme.html' id ='contactme'>Contact Me</a>
+        <a href='Pages/todo' id='todo'>Changelog</a>
+        <a href='Pages/faq' id='faq'>FAQ</a>
+        <a href='Pages/contactme' id ='contactme'>Contact Me</a>
         
     </footer>
 
